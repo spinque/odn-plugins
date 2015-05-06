@@ -30,8 +30,9 @@ public class OAIDpu extends AbstractDpu<OAIDpuConfig_V1> {
 		
     @Override
     protected void innerExecute() throws DPUException {
-
         ContextUtils.sendShortInfo(ctx, "OAIDpu.message");
+        
+        /* TODO: crawl the OAI repository */
         
     }
 	

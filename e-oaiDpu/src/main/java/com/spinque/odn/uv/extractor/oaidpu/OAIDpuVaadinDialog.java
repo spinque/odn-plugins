@@ -19,7 +19,10 @@ public class OAIDpuVaadinDialog extends AbstractDialog<OAIDpuConfig_V1> {
 
     @Override
     public void setConfiguration(OAIDpuConfig_V1 c) throws DPUConfigException {
-
+    	// TODO: set value of the configurable fields
+    	// -- harvestURL
+    	// -- metadataPrefix
+    	// -- setSpec
     }
 
     @Override
@@ -37,6 +40,12 @@ public class OAIDpuVaadinDialog extends AbstractDialog<OAIDpuConfig_V1> {
         mainLayout.setMargin(true);
 
         mainLayout.addComponent(new Label(ctx.tr("OAIDpu.dialog.label")));
+        
+        // TODO: add configuration, ask for:
+        // -- harvestURL
+        // -- metadataPrefix
+        // -- setSpec
+        // (optionally: size=..., to limit the crawl when testing)
 
         setCompositionRoot(mainLayout);
     }
