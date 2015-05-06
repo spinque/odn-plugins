@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>eu.unifiedviews</groupId>
+        <artifactId>uv-pom-dpu</artifactId>
+        <version>2.0.1</version>
+    </parent>
+    <groupId>com.spinque.odn.uv</groupId>
+    <artifactId>e-oaiDpu</artifactId>
+    <version>1.0.0</version>
+    <packaging>bundle</packaging>
+    <name>OAIDpu</name>
+    <description></description>
+
+    <properties>
+        <dpu.package>com.spinque.odn.uv.extractor.oaidpu</dpu.package>
+        <dpu.mainClass>OAIDpu</dpu.mainClass>
+    </properties>
+
+    <dependencies>
+        <!-- UnifiedViews helpers. -->
+        <dependency>
+            <groupId>eu.unifiedviews</groupId>
+            <artifactId>uv-dataunit-helpers</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>eu.unifiedviews</groupId>
+            <artifactId>uv-dpu-helpers</artifactId>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+	
+</project>
