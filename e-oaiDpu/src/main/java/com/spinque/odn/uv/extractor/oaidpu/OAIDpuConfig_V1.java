@@ -38,5 +38,10 @@ public class OAIDpuConfig_V1 {
 	public void setSetSpec(String value) {
 		_setSpec = value;
 	}
+	
+	@Override
+	public String toString() {
+		return "[OAI-PMH configuration " + _harvestURL + " " + _metadataPrefix + (_setSpec != null ? " (" + _setSpec + ")" : "");
+	}
 
 }
