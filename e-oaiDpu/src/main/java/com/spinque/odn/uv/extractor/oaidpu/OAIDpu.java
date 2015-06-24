@@ -1,6 +1,8 @@
 package com.spinque.odn.uv.extractor.oaidpu;
 
 import java.io.FileWriter;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.UUID;
@@ -33,7 +35,7 @@ import eu.unifiedviews.helpers.dpu.extension.faulttolerance.FaultTolerance;
  * @author none
  */
 @DPU.AsExtractor
-public class OAIDpu extends AbstractDpu<OAIDpuConfig_V1> {
+public class OAIDpu extends AbstractDpu<OAIDpuConfig_V1> implements DPU {
 
     private static final Logger LOG = LoggerFactory.getLogger(OAIDpu.class);
 		
@@ -79,6 +81,10 @@ public class OAIDpu extends AbstractDpu<OAIDpuConfig_V1> {
         	} finally {
         		rc.close();
         	}
+        } catch (MalformedURLException e) {
+        	throw new DPUException(e);
+		} catch (IOException e) {
+			throw new DPUException(e);
 		} catch (RepositoryException e) {
 			throw new DPUException(e);
         } catch (DataUnitException e) {
