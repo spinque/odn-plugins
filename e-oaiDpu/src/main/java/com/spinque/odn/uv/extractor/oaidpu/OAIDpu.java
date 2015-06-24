@@ -1,9 +1,20 @@
 package com.spinque.odn.uv.extractor.oaidpu;
 
+import java.io.FileWriter;
+import java.net.URL;
+import java.util.Iterator;
+import java.util.UUID;
+
 import org.openrdf.repository.RepositoryConnection;
 import org.openrdf.repository.RepositoryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.Element;
+
+import com.spinque.odn.uv.extractor.oaidpu.crawler.OAIPMHCrawler;
+import com.spinque.odn.uv.extractor.oaidpu.crawler.OAIPMHCrawler.Verb;
+import com.spinque.utils.Utils;
+import com.spinque.utils.XMLUtils;
 
 import eu.unifiedviews.dataunit.DataUnit;
 import eu.unifiedviews.dataunit.DataUnitException;
@@ -49,8 +60,23 @@ public class OAIDpu extends AbstractDpu<OAIDpuConfig_V1> {
         try {
         	RepositoryConnection rc = outputRDF.getConnection();
         	try {
-        		/* TODO: crawl the OAI repository */
-        		/* TODO: insert RDF fragments into the RepositoryConnection */
+
+        		/* crawl the OAI repository */
+        		OAIPMHCrawler crawler = new OAIPMHCrawler(new URL(config.getHarvestURL()), config.getMetadataPrefix(), config.getSetSpec(), null, null, Verb.ListRecords);
+        		Iterator<Element> iter = crawler.iterator();
+        		while (iter.hasNext()) {
+        			Element oaiRecord = iter.next();
+        			String fileName = output.addNewFile(UUID.randomUUID().toString());
+        			String data = Utils.processXML(oaiRecord, false);
+        			
+        			/* add the data as a file to the ODN */
+        			FileWriter fw = new FileWriter(fileName);
+        			try {
+        				fw.write(data);
+        			} finally {
+        				fw.close();
+        			}
+        		}
         	} finally {
         		rc.close();
         	}
