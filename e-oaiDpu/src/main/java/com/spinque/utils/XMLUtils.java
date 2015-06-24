@@ -2,7 +2,6 @@ package com.spinque.utils;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerFactory;
 
 import org.w3c.dom.Document;
@@ -15,14 +14,6 @@ public class XMLUtils {
 	static final TransformerFactory tf = TransformerFactory.newInstance();
 	static DocumentBuilder db = null;
 	
-	private static synchronized void initialize() {
-		try {
-			db = dbf.newDocumentBuilder();
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-		}
-	}
-
 	/**
 	 * tries to integrate the document source
 	 * into the document dest under the element destElem.

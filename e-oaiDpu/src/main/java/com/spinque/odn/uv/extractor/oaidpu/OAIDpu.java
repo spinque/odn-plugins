@@ -14,7 +14,6 @@ import org.w3c.dom.Element;
 import com.spinque.odn.uv.extractor.oaidpu.crawler.OAIPMHCrawler;
 import com.spinque.odn.uv.extractor.oaidpu.crawler.OAIPMHCrawler.Verb;
 import com.spinque.utils.Utils;
-import com.spinque.utils.XMLUtils;
 
 import eu.unifiedviews.dataunit.DataUnit;
 import eu.unifiedviews.dataunit.DataUnitException;
