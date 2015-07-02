@@ -14,7 +14,7 @@
     <description></description>
 
     <properties>
-        <dpu.package>com.spinque.odn.uv.extractor.jsondpu</dpu.package>
+        <dpu.package>com.spinque.odn.uv.transformer.jsondpu</dpu.package>
         <dpu.mainClass>JSONDpu</dpu.mainClass>
     </properties>
 
