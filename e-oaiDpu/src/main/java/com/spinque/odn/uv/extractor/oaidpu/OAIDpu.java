@@ -50,33 +50,26 @@ public class OAIDpu extends AbstractDpu<OAIDpuConfig_V1> implements DPU {
         
         LOG.info("Configuration: " + config.toString());
         try {
-        	RepositoryConnection rc = output.getConnection();
-        	try {
+        	
+        	/* crawl the OAI repository */
+        	OAIPMHCrawler crawler = new OAIPMHCrawler(new URL(config.getHarvestURL()), config.getMetadataPrefix(), config.getSetSpec(), null, null, Verb.ListRecords);
+        	Iterator<Element> iter = crawler.iterator();
+        	while (iter.hasNext()) {
+        		Element oaiRecord = iter.next();
+        		String fileName = output.addNewFile(UUID.randomUUID().toString());
+        		String data = Utils.processXML(oaiRecord, false);
 
-        		/* crawl the OAI repository */
-        		OAIPMHCrawler crawler = new OAIPMHCrawler(new URL(config.getHarvestURL()), config.getMetadataPrefix(), config.getSetSpec(), null, null, Verb.ListRecords);
-        		Iterator<Element> iter = crawler.iterator();
-        		while (iter.hasNext()) {
-        			Element oaiRecord = iter.next();
-        			String fileName = output.addNewFile(UUID.randomUUID().toString());
-        			String data = Utils.processXML(oaiRecord, false);
-        			
-        			/* add the data as a file to the ODN */
-        			FileWriter fw = new FileWriter(fileName);
-        			try {
-        				fw.write(data);
-        			} finally {
-        				fw.close();
-        			}
+        		/* add the data as a file to the ODN */
+        		FileWriter fw = new FileWriter(fileName);
+        		try {
+        			fw.write(data);
+        		} finally {
+        			fw.close();
         		}
-        	} finally {
-        		rc.close();
         	}
         } catch (MalformedURLException e) {
         	throw new DPUException(e);
 		} catch (IOException e) {
-			throw new DPUException(e);
-		} catch (RepositoryException e) {
 			throw new DPUException(e);
         } catch (DataUnitException e) {
 			throw new DPUException(e);
