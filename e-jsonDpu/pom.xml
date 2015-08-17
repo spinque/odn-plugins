@@ -7,10 +7,10 @@
         <version>2.0.1</version>
     </parent>
     <groupId>com.spinque.odn.uv</groupId>
-    <artifactId>e-jsonDpu</artifactId>
+    <artifactId>t-jsonDpu</artifactId>
     <version>1.0.1</version>
     <packaging>bundle</packaging>
-    <name>JSONDpu</name>
+    <name>T-JSONDpu</name>
     <description></description>
 
     <properties>
