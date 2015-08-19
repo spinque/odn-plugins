@@ -31,11 +31,6 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>eu.unifiedviews</groupId>
-            <artifactId>uv-dpu-api</artifactId>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
         	<groupId>joda-time</groupId>
         	<artifactId>joda-time</artifactId>
             <scope>compile</scope>
