@@ -12,7 +12,6 @@ import org.w3c.dom.Element;
 
 /**
  * Note: for parsing text snippets and converting them into date-objects, 
- * see {@link com.spinque.utils.text.Utils}.
  */
 public class DateUtils {
 

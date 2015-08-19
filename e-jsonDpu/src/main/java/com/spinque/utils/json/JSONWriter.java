@@ -187,8 +187,7 @@ public class JSONWriter {
 
 	/**
 	 * @param value
-	 * @param dense whether to compact the data as much as possible (no additional whitespace)
-	 * @return
+	 * @return the writer itself
 	 * @throws IOException
 	 */
 	public JSONWriter writeString(String value) throws IOException {
@@ -249,7 +248,7 @@ public class JSONWriter {
 	 * 
 	 * @param key
 	 * @param json
-	 * @return
+	 * @return the writer itself
 	 * @throws IOException
 	 */
 	public JSONWriter writeRawValue(String key, String json) throws IOException {
@@ -423,7 +422,7 @@ public class JSONWriter {
 	 * 
 	 * @param key
 	 * @param options
-	 * @return
+	 * @return the writer itself
 	 * @throws IOException
 	 */
 	public JSONWriter writeObjectStrings(String key, Map<String, String> options) throws IOException {
@@ -441,7 +440,7 @@ public class JSONWriter {
 	 * 
 	 * @param key
 	 * @param options
-	 * @return
+	 * @return the writer itself
 	 * @throws IOException
 	 */
 	public <C extends JSONSerializable> JSONWriter writeObject(String key, Map<String, C> options) throws IOException {

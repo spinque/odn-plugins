@@ -35,7 +35,7 @@ public class XMLUtils {
 	 * @param nameSpace
 	 * @param nodeName
 	 * @param childNodes a list of nodes that should become childnodes of the newly created node.
-	 * @return
+	 * @return newly created element
 	 */
 	public static Element createElementNS(Document doc, String nameSpace, String nodeName,
 			Element... childNodes) {
@@ -51,7 +51,7 @@ public class XMLUtils {
 	 * @param doc
 	 * @param nodeName
 	 * @param textContent
-	 * @return
+	 * @return newly created element with the text content added
 	 */
 	public static Element createElementWithText(Document doc, String nodeName, String textContent) {
 		Element result = doc.createElement(nodeName);

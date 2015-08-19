@@ -98,8 +98,9 @@ public class Utils {
 	 * this... (it creates an in-memory representation 
 	 * of the document!)
 	 * 
-	 * @param doc
-	 * @return a string representation of the document.
+	 * @param out
+	 * @param elem
+	 * @param hideXMLDeclaration
 	 * @throws IOException
 	 */
 	public static void writeXML(OutputStream out, Element elem, boolean hideXMLDeclaration) throws IOException {
@@ -120,8 +121,8 @@ public class Utils {
 	 * this... (it creates an in-memory representation 
 	 * of the document!)
 	 * 
-	 * @param doc
-	 * @return a string representation of the document.
+	 * @param out
+	 * @param elem
 	 * @throws IOException
 	 */
 	public static void writeXML(Writer out, Node elem) throws IOException {
@@ -216,7 +217,7 @@ public class Utils {
 	 * @param source
 	 * @param offset
 	 * @param size
-	 * @return
+	 * @return newly created byte array
 	 */
 	public static byte[] subarray(byte[] source, int offset, int size) {
 		if (offset + size > source.length)
@@ -234,7 +235,7 @@ public class Utils {
 	/**
 	 * escapes a string with double quotes
 	 * @param name
-	 * @return
+	 * @return the escaped string
 	 */
 	public static String escapeDoubleQuote(String name) {
 		if (name == null)
@@ -250,7 +251,7 @@ public class Utils {
 	 * as double double-quotes. 
 	 * 
 	 * @param name value to de-escape
-	 * @return
+	 * @return the deescaped string
 	 */
 	public static String deescapeDoubleQuote(String name) {
 		if (name == null)
@@ -465,7 +466,7 @@ public class Utils {
 	 * @param keywords
 	 * @param separator
 	 * @throws NullPointerException if keywords or separator is null;
-	 * @return
+	 * @return the joined string
 	 */
 	public static String joinStrings(String[] keywords, String separator) {
 		if (separator == null || keywords == null)
@@ -508,7 +509,7 @@ public class Utils {
 	 * @param resultNode
 	 * @param string
 	 * @param trimWhitespace Iff true, additional whitespace will be trimmed from the string.
-	 * @return
+	 * @return the text content of the given node
 	 * @throws IOException
 	 */
 	public static String getTextContentOfChild(Element resultNode, String string, boolean trimWhitespace) throws IOException {
@@ -627,8 +628,8 @@ public class Utils {
 	 * with the given name is encountered. 
 	 * 
 	 * @param resultNode
-	 * @param string
-	 * @return
+	 * @param tagName
+	 * @return the text content of the element with the given tag, or null otherwise
 	 * @throws IOException 
 	 */
 	public static String getOptionalTextContentOfChild(Element resultNode, String tagName) throws IOException {
@@ -670,7 +671,7 @@ public class Utils {
 	 * 
 	 * @param root
 	 * @param fileFilter
-	 * @return
+	 * @return a list of files matching the fileFilter.
 	 */
 	public static Collection<File> recursiveList(File root,
 			FileFilter fileFilter) {
@@ -813,7 +814,7 @@ public class Utils {
 	 * @param elem
 	 * @param elemName
 	 * @param defaultValue
-	 * @return
+	 * @return the number in the text content of the element with name elemName, or defaultValue otherwise.
 	 * @throws IOException
 	 */
 	public static long getLongOfChild(Element elem, String elemName, long defaultValue) throws IOException {
@@ -933,7 +934,7 @@ public class Utils {
 	/**
 	 * Determines whether the given file contains a valid XML document
 	 * @param source
-	 * @return
+	 * @return true iff valid XML.
 	 * @throws IOException
 	 */
 	public static boolean validXML(File source) throws IOException {
@@ -948,7 +949,7 @@ public class Utils {
 	/**
 	 * Determines whether the given data represents a valid XML document
 	 * @param in
-	 * @return
+	 * @return true iff valid XML.
 	 * @throws IOException
 	 */
 	public static boolean validXML(InputStream in) throws IOException {
@@ -971,7 +972,7 @@ public class Utils {
 	 * 
 	 * @param root
 	 * @param source
-	 * @return
+	 * @return relative path as a string.
 	 */
 	public static String relativePath(File root, File source) {
 		File parent = source;
@@ -1050,7 +1051,7 @@ public class Utils {
 	 * 	Utils.runProcess(new String[] { "ps", "aux" }, System.out, System.err);
 	 * 
 	 * @param command
-	 * @return
+	 * @return the exit code.
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
@@ -1169,7 +1170,7 @@ public class Utils {
 	 * Removes the arguments that are accepted
 	 * @param arguments a list of arguments excluding the '--' prefix
 	 * @param flagStrings
-	 * @return
+	 * @return the flags that where in the list
 	 */
 	public static Set<String> parseFlags(List<String> arguments, String[] flagStrings) {
 		Set<String> flags = new HashSet<String>();
@@ -1202,7 +1203,7 @@ public class Utils {
 	 * 
 	 * @param arguments
 	 * @param paramStrings
-	 * @return
+	 * @return the parameters that were specified in the list.
 	 */
 	public static Map<String, String> parseParams(List<String> arguments,
 			String[] paramStrings) {
@@ -1271,7 +1272,7 @@ public class Utils {
 	 * 
 	 * @param <O>
 	 * @param array
-	 * @return
+	 * @return the newly created list
 	 */
 	public static <O> List<O> toArrayList(O[] array) {
 		List<O> list = new ArrayList<O>(array.length);
@@ -1330,7 +1331,7 @@ public class Utils {
 	 * superfluous indentation.
 	 * 
 	 * @param value
-	 * @return
+	 * @return the text with superfluous indentation removed.
 	 */
 	public static String nicifyXMLText(String value) {
 		String description = value.trim();
@@ -1353,7 +1354,7 @@ public class Utils {
 	 * Tries to pretty-print a duration.
 	 * 
 	 * @param duration
-	 * @return
+	 * @return the duration as a human readable string
 	 */
 	public static String formatTime(long duration) {
 		// if total time less than 1.2 seconds, print time in milliseconds

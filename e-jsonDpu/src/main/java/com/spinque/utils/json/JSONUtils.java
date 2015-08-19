@@ -96,7 +96,7 @@ public class JSONUtils {
 	 * Warning: do not use for potentially large JSON objects. 
 	 * 
 	 * @param object
-	 * @return
+	 * @return the serialized form
 	 * @throws IOException
 	 */
 	public static String serialize(JSONDOMSerializable object) throws IOException {
@@ -211,7 +211,7 @@ public class JSONUtils {
 	 * Expects a string with the double-quotes already removed.
 	 * 
 	 * @param data
-	 * @return
+	 * @return the de-escaped string
 	 * @throws IOException
 	 */
 	public static String deescape(String data) throws IOException {
