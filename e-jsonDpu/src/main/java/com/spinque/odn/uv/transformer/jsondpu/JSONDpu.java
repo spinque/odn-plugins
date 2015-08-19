@@ -36,7 +36,7 @@ import eu.unifiedviews.helpers.dpu.extension.faulttolerance.FaultTolerance;
  * @author none
  */
 @DPU.AsTransformer
-public class JSONDpu extends AbstractDpu<JSONDpuConfig_V1> implements DPU {
+public class JSONDpu extends AbstractDpu<JSONDpuConfig_V1> {
 
     private static final Logger LOG = LoggerFactory.getLogger(JSONDpu.class);
 
