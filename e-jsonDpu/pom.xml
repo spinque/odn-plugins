@@ -33,12 +33,7 @@
         <dependency>
         	<groupId>joda-time</groupId>
         	<artifactId>joda-time</artifactId>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-        	<groupId>org.joda</groupId>
-        	<artifactId>joda-convert</artifactId>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
