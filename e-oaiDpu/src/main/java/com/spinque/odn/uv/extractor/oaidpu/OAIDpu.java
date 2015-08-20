@@ -1,14 +1,14 @@
 package com.spinque.odn.uv.extractor.oaidpu;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.UUID;
 
-import org.openrdf.repository.RepositoryConnection;
-import org.openrdf.repository.RepositoryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
@@ -19,9 +19,11 @@ import com.spinque.utils.Utils;
 
 import eu.unifiedviews.dataunit.DataUnit;
 import eu.unifiedviews.dataunit.DataUnitException;
+import eu.unifiedviews.dataunit.files.FilesDataUnit;
 import eu.unifiedviews.dataunit.files.WritableFilesDataUnit;
 import eu.unifiedviews.dpu.DPU;
 import eu.unifiedviews.dpu.DPUException;
+import eu.unifiedviews.helpers.dataunit.files.FilesDataUnitUtils;
 import eu.unifiedviews.helpers.dpu.config.ConfigHistory;
 import eu.unifiedviews.helpers.dpu.context.ContextUtils;
 import eu.unifiedviews.helpers.dpu.exec.AbstractDpu;
@@ -32,7 +34,7 @@ import eu.unifiedviews.helpers.dpu.exec.AbstractDpu;
  * @author none
  */
 @DPU.AsExtractor
-public class OAIDpu extends AbstractDpu<OAIDpuConfig_V1> implements DPU {
+public class OAIDpu extends AbstractDpu<OAIDpuConfig_V1> {
 
     private static final Logger LOG = LoggerFactory.getLogger(OAIDpu.class);
 		
@@ -47,25 +49,30 @@ public class OAIDpu extends AbstractDpu<OAIDpuConfig_V1> implements DPU {
     protected void innerExecute() throws DPUException {
         ContextUtils.sendShortInfo(ctx, "OAIDpu.message");
         
-        
         LOG.info("Configuration: " + config.toString());
         try {
         	
         	/* crawl the OAI repository */
         	OAIPMHCrawler crawler = new OAIPMHCrawler(new URL(config.getHarvestURL()), config.getMetadataPrefix(), config.getSetSpec(), null, null, Verb.ListRecords);
         	Iterator<Element> iter = crawler.iterator();
+        	int count = 0;
         	while (iter.hasNext()) {
         		Element oaiRecord = iter.next();
-        		String fileName = output.addNewFile(UUID.randomUUID().toString());
+        		
+        		FilesDataUnit.Entry e = FilesDataUnitUtils.createFile(output,UUID.randomUUID().toString());
+        		File outputFile = new File(URI.create(e.getFileURIString()));
+        		
         		String data = Utils.processXML(oaiRecord, false);
 
         		/* add the data as a file to the ODN */
-        		FileWriter fw = new FileWriter(fileName);
+        		FileWriter fw = new FileWriter(outputFile);
         		try {
         			fw.write(data);
         		} finally {
         			fw.close();
         		}
+        		if (config.getMaxDocs() != -1 && ++count >= config.getMaxDocs())
+        			break;
         	}
         } catch (MalformedURLException e) {
         	throw new DPUException(e);

@@ -10,6 +10,7 @@ public class OAIDpuConfig_V1 {
 	private String _harvestURL;
 	private String _metadataPrefix;
 	private String _setSpec; /* optional */
+	private int _maxDocs = 0;
 
     public OAIDpuConfig_V1() {
 
@@ -39,9 +40,15 @@ public class OAIDpuConfig_V1 {
 		_setSpec = value;
 	}
 	
+	public int getMaxDocs() {
+		return _maxDocs;
+	}
+	public void setMaxDocs(int maxDocs) {
+		_maxDocs = maxDocs;
+	}
+	
 	@Override
 	public String toString() {
 		return "[OAI-PMH configuration " + _harvestURL + " " + _metadataPrefix + (_setSpec != null ? " (" + _setSpec + ")" : "");
 	}
-
 }

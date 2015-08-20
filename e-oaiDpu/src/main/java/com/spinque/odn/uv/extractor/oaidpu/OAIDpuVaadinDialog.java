@@ -19,6 +19,7 @@ public class OAIDpuVaadinDialog extends AbstractDialog<OAIDpuConfig_V1> {
 	private TextField txtHarvestURL;
     private TextField txtMetadataPrefix;
     private TextField txtSetSpec;
+    private TextField txtMaxDocs;
     
     public OAIDpuVaadinDialog() {
         super(OAIDpu.class);
@@ -29,6 +30,7 @@ public class OAIDpuVaadinDialog extends AbstractDialog<OAIDpuConfig_V1> {
     	txtHarvestURL.setValue(config.getHarvestURL());
     	txtMetadataPrefix.setValue(config.getMetadataPrefix());
     	txtSetSpec.setValue(config.getSetSpec());
+    	txtMaxDocs.setValue("" + config.getMaxDocs());
     }
 
     @Override
@@ -36,6 +38,14 @@ public class OAIDpuVaadinDialog extends AbstractDialog<OAIDpuConfig_V1> {
     	
     	/* check correctness */
     	boolean isValid = txtHarvestURL.isValid() && txtMetadataPrefix.isValid();
+    	
+    	try {
+    		int number = Integer.parseInt(txtMaxDocs.getValue());
+    		if (number < 0)
+    			isValid = false;
+    	} catch (NumberFormatException e) {
+    		isValid = false;
+    	}
     	if (!isValid) {
     		throw new DPUConfigException(ctx.tr("dialog.errors.params"));
     	}
@@ -44,6 +54,7 @@ public class OAIDpuVaadinDialog extends AbstractDialog<OAIDpuConfig_V1> {
         c.setHarvestURL(txtHarvestURL.getValue());
         c.setMetadataPrefix(txtMetadataPrefix.getValue());
         c.setSetSpec(txtSetSpec.getValue());
+        c.setMaxDocs(Integer.parseInt(txtMaxDocs.getValue()));
         return c;
     }
 
@@ -80,7 +91,14 @@ public class OAIDpuVaadinDialog extends AbstractDialog<OAIDpuConfig_V1> {
         txtSetSpec.setRequired(false);
         txtSetSpec.setNullRepresentation("");
         txtSetSpec.setWidth("100%");
-        mainLayout.addComponent(txtHarvestURL);
+        mainLayout.addComponent(txtSetSpec);
+        
+        txtMaxDocs = new TextField();
+        txtMaxDocs.setCaption(ctx.tr("dialog.config.maxdocs"));
+        txtMaxDocs.setRequired(true);
+        txtMaxDocs.setNullRepresentation("");
+        txtMaxDocs.setWidth("100%");
+        mainLayout.addComponent(txtMaxDocs);
         
         // (optionally: size=..., to limit the crawl when testing)
 

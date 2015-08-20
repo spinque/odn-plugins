@@ -8,9 +8,9 @@
     </parent>
     <groupId>com.spinque.odn.uv</groupId>
     <artifactId>e-oaiDpu</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <packaging>bundle</packaging>
-    <name>OAIDpu</name>
+    <name>E-OAIDpu</name>
     <description></description>
 
     <properties>
@@ -31,15 +31,26 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>eu.unifiedviews</groupId>
-            <artifactId>uv-dpu-api</artifactId>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-        	<groupId>joda-time</groupId>
-        	<artifactId>joda-time</artifactId>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.1</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+	</plugins>
+    </build>
+
 	
     <dependencyManagement>
     	<dependencies>
