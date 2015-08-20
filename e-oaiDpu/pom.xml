@@ -8,7 +8,7 @@
     </parent>
     <groupId>com.spinque.odn.uv</groupId>
     <artifactId>e-oaiDpu</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <packaging>bundle</packaging>
     <name>E-OAIDpu</name>
     <description></description>
