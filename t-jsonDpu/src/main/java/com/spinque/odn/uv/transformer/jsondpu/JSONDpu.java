@@ -25,6 +25,7 @@ import eu.unifiedviews.dataunit.files.FilesDataUnit.Iteration;
 import eu.unifiedviews.dataunit.files.WritableFilesDataUnit;
 import eu.unifiedviews.dpu.DPU;
 import eu.unifiedviews.dpu.DPUException;
+import eu.unifiedviews.helpers.dataunit.resource.ResourceHelpers;
 import eu.unifiedviews.helpers.dpu.config.ConfigHistory;
 import eu.unifiedviews.helpers.dpu.context.ContextUtils;
 import eu.unifiedviews.helpers.dpu.exec.AbstractDpu;
@@ -98,9 +99,14 @@ public class JSONDpu extends AbstractDpu<JSONDpuConfig_V1> {
 
 	private void emitJSONObject(String line) throws DataUnitException, IOException {
 		String fileName = output.addNewFile(UUID.randomUUID().toString());
+		File outputFile = new File(fileName);
+		
+		/* seems like we have to make our own folders */
+		outputFile.getParentFile().mkdirs();
+		
 		JSONDOM result = JSONParser.parse(line);
 		JSONXMLWrapper wrapper = new JSONXMLWrapper(result);
 		Document doc = Utils.newDocument();
-		Utils.writeXML(new File(fileName), wrapper.toXML(doc));
+		Utils.writeXML(outputFile, wrapper.toXML(doc));
 	}	
 }
