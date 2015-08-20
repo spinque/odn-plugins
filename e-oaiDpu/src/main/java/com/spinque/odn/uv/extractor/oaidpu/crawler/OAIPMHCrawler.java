@@ -58,9 +58,10 @@ public class OAIPMHCrawler implements Iterable<Element> {
 	};
 	
 	private final Verb _verb;
+	private boolean _stripHeader;
 
 	public OAIPMHCrawler(URL harvesturl, String metadataPrefix,
-			String setSpec, DateTime fromDate, DateTime untilDate, Verb verb) {
+			String setSpec, DateTime fromDate, DateTime untilDate, Verb verb, boolean stripHeader) {
 		if (fromDate != null)
 			System.out.println("Crawling from " + DateUtils.printBasicDate(fromDate));
 		if (untilDate != null)
@@ -71,10 +72,11 @@ public class OAIPMHCrawler implements Iterable<Element> {
 		_fromDate = fromDate; // format: yyyy-MM-dd  (null means all)
 		_untilDate = untilDate;
 		_verb = verb;
+		_stripHeader = stripHeader;
 	}
 	
 	public void setResumptionToken(String resumptionToken) {
-		_lastBatch = new OAIBatch(resumptionToken);
+		_lastBatch = new OAIBatch(resumptionToken, _stripHeader);
 	}
 
 	private OAIBatch fetchOAIBatch(OAIBatch previousBatch) throws IOException {
@@ -94,7 +96,7 @@ public class OAIPMHCrawler implements Iterable<Element> {
 		
 		duration += System.currentTimeMillis();
 		_lastDuration = duration;
-		OAIBatch batch = new OAIBatch(Utils.parseXML(data));
+		OAIBatch batch = new OAIBatch(Utils.parseXML(data), _stripHeader);
 		if (batch.getError() != null)
 			throw new IOException("OAI ERROR:" + fetchURL + " : " + batch.getError().toString());
 		

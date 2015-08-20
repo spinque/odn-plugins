@@ -53,7 +53,7 @@ public class OAIDpu extends AbstractDpu<OAIDpuConfig_V1> {
         try {
         	
         	/* crawl the OAI repository */
-        	OAIPMHCrawler crawler = new OAIPMHCrawler(new URL(config.getHarvestURL()), config.getMetadataPrefix(), config.getSetSpec(), null, null, Verb.ListRecords);
+        	OAIPMHCrawler crawler = new OAIPMHCrawler(new URL(config.getHarvestURL()), config.getMetadataPrefix(), config.getSetSpec(), null, null, Verb.ListRecords, true);
         	Iterator<Element> iter = crawler.iterator();
         	int count = 0;
         	while (iter.hasNext()) {

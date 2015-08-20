@@ -15,18 +15,22 @@ import com.spinque.utils.Utils;
 
 public class OAIBatch {
 	
-	protected static final OAIBatch POISON_BATCH = new OAIBatch((String) null);
+	protected static final OAIBatch POISON_BATCH = new OAIBatch((String) null, true);
 
 	private final Document _batchXML;
 	private final String _resumptionToken;
+	
+	private boolean _stripHeaderInfo = true;
 
-	public OAIBatch(Document batchXML) {
+	public OAIBatch(Document batchXML, boolean stripHeader) {
 		_batchXML = batchXML;
 		_resumptionToken = null;
+		_stripHeaderInfo = stripHeader;
 	}
-	public OAIBatch(String resumptionToken) {
+	public OAIBatch(String resumptionToken, boolean stripHeader) {
 		_batchXML = null;
 		_resumptionToken = resumptionToken;
+		_stripHeaderInfo = stripHeader;
 	}
 
 	public String getResumptionToken() {
@@ -68,9 +72,17 @@ public class OAIBatch {
 		}
 		NodeList nl = Utils.getChildElementsByTagNameNS(recordListElem, OAIUtils.OAI_NS, "record");
 		List<Element> result = new ArrayList<Element>();
+		
 		for (int i = 0; i < nl.getLength(); i++) {
 			Element recordElem = (Element) nl.item(i);
-			result.add(recordElem);
+			if (_stripHeaderInfo) {
+				Element metadata = Utils.getOptionalSingleChildNS(recordElem, OAIUtils.OAI_NS, "metadata");
+				if (metadata != null) {
+					result.add(Utils.getSingleChild(metadata));
+				}
+			} else {
+				result.add(recordElem);
+			}
 		}
 		return result;
 	}
