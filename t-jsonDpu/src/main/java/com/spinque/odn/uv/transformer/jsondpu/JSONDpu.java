@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.nio.charset.Charset;
 import java.util.UUID;
 
@@ -68,7 +69,7 @@ public class JSONDpu extends AbstractDpu<JSONDpuConfig_V1> {
         		while (inputIterator.hasNext()) {
         			FilesDataUnit.Entry entry = inputIterator.next();
         			if (config.getOneObjectPerLine()) {
-        				BufferedReader br = new BufferedReader(new FileReader(entry.getFileURIString()));
+        				BufferedReader br = new BufferedReader(new FileReader(new File(URI.create(entry.getFileURIString()))));
         				try {
         					String line = br.readLine();
         					if (line == null)
@@ -78,12 +79,12 @@ public class JSONDpu extends AbstractDpu<JSONDpuConfig_V1> {
         					br.close();
         				}
         			} else {
-        				File inputFile = new File(entry.getFileURIString());
+        				File inputFile = new File(URI.create(entry.getFileURIString()));
         				String data = Utils.readIntoString(inputFile, Charset.forName("UTF-8"), MAX_SERIALIZED_JSON_SIZE);
         				emitJSONObject(data);
         			}
         		}
-        	} finally {
+			} finally {
         		inputIterator.close();
         	}
         } catch (MalformedURLException e) {
