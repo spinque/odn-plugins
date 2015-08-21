@@ -73,11 +73,11 @@ public class OAIDpu extends AbstractDpu<OAIDpuConfig_V1> {
         		} finally {
         			fw.close();
         		}
-        		if (config.getMaxDocs() != 0 && ++count >= config.getMaxDocs())
-        			break;
-        		
-        		if (count % 1000 == 0)
+        		if (++count % 1000 == 0)
         			LOG.info("Crawled " + count + " OAI records so far...");
+
+        		if (config.getMaxDocs() != 0 && count >= config.getMaxDocs())
+        			break;
         	}
         } catch (MalformedURLException e) {
         	throw new DPUException(e);
