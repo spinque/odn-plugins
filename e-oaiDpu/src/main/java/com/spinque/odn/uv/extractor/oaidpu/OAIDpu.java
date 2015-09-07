@@ -61,7 +61,7 @@ public class OAIDpu extends AbstractDpu<OAIDpuConfig_V1> {
         		
 			/* for ODN to process the data correctly further down the pipeline, we need to 
 			 * give the files a '.xml' extension */
-        		FilesDataUnit.Entry e = FilesDataUnitUtils.createFile(output,UUID.randomUUID().toString() + ".rdf");
+        		FilesDataUnit.Entry e = FilesDataUnitUtils.createFile(output,UUID.randomUUID().toString() + ".xml");
         		File outputFile = new File(URI.create(e.getFileURIString()));
         		
         		String data = Utils.processXML(oaiRecord, false);
