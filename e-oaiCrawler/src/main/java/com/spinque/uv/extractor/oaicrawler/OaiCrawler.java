@@ -60,8 +60,9 @@ public class OaiCrawler extends AbstractDpu<OaiCrawlerConfig_V1> {
         	int count = 0;
         	while (iter.hasNext()) {
         		le.add(iter.next());
+        		count++;
         		
-        		if (config.getGroupSize() > 0 && ++count % config.getGroupSize() == 0) {
+        		if (config.getGroupSize() > 0 && count % config.getGroupSize() == 0) {
         			flushElements(le);
         		}
         		if (count % 1000 == 0)
