@@ -9,7 +9,7 @@ public class OaiCrawlerConfig_V1 {
 	
 	private String _harvestURL;
 	private String _metadataPrefix;
-	private String _setSpec; /* optional */
+	private String _setSpec = ""; /* optional */
 	private int _maxDocs = 0;
 	private int	_groupSize = 1;
 
